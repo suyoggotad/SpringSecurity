@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | SecureApp</title>
+    <style>
+        /* ---------- GLOBAL STYLES ---------- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; font-family: "Segoe UI", Roboto, sans-serif; background: #f7fafc; color: #1a202c; }
+        a { text-decoration: none; color: inherit; }
+
+        /* ---------- LAYOUT ---------- */
+        .wrapper {
+          display: flex;
+          min-height: 100vh;
+        }
+
+        /* ---------- SIDEBAR ---------- */
+        .sidebar {
+          width: 240px;
+          background: #2b6cb0;
+          color: white;
+          display: flex;
+          flex-direction: column;
+          padding: 20px 0;
+          box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+          position: fixed;
+          height: 100%;
+        }
+
+        .sidebar .logo {
+          font-size: 20px;
+          font-weight: 600;
+          text-align: center;
+          margin-bottom: 24px;
+          letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+          list-style: none;
+          padding: 0;
+        }
+
+        .nav-links li {
+          margin: 6px 0;
+        }
+
+        .nav-links a {
+          display: block;
+          padding: 12px 24px;
+          color: white;
+          font-weight: 500;
+          transition: background 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+          background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* ---------- MAIN CONTENT ---------- */
+        .main {
+          margin-left: 240px;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        }
+
+        /* ---------- HEADER ---------- */
+        .header {
+          background: white;
+          padding: 14px 24px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid #e2e8f0;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .header h2 {
+          font-size: 20px;
+          color: #2b6cb0;
+        }
+
+        .profile {
+          position: relative;
+          cursor: pointer;
+        }
+
+        .profile span {
+          background: #2b6cb0;
+          color: white;
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 600;
+        }
+
+        .dropdown {
+          position: absolute;
+          right: 0;
+          top: 46px;
+          background: white;
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          overflow: hidden;
+          display: none;
+          min-width: 160px;
+          z-index: 10;
+        }
+
+        .dropdown a {
+          display: block;
+          padding: 10px 14px;
+          color: #2b6cb0;
+          font-size: 14px;
+        }
+
+        .dropdown a:hover {
+          background: #ebf8ff;
+        }
+
+        /* ---------- DASHBOARD ---------- */
+        .dashboard {
+          flex: 1;
+          padding: 24px;
+        }
+
+        .dashboard h3 {
+          font-size: 24px;
+          margin-bottom: 20px;
+          color: #2d3748;
+        }
+
+        .cards {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 20px;
+        }
+
+        .card {
+          background: white;
+          border-radius: 10px;
+          padding: 20px;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+          transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+        }
+
+        .card h4 {
+          color: #2b6cb0;
+          margin-bottom: 8px;
+        }
+
+        .card p {
+          color: #4a5568;
+          font-size: 15px;
+        }
+
+        /* ---------- FOOTER ---------- */
+        footer {
+          background: white;
+          text-align: center;
+          padding: 14px;
+          border-top: 1px solid #e2e8f0;
+          font-size: 13px;
+          color: #718096;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 768px) {
+          .sidebar { width: 200px; }
+          .main { margin-left: 200px; }
+          .header h2 { font-size: 18px; }
+        }
+
+        @media (max-width: 600px) {
+          .sidebar {
+            position: absolute;
+            width: 100%;
+            height: auto;
+            flex-direction: row;
+            justify-content: space-around;
+            padding: 10px 0;
+          }
+          .main { margin-left: 0; margin-top: 60px; }
+          .dashboard { padding: 16px; }
+          .header { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+        <div class="logo">SecureApp Admin</div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Dashboard</a></li>
+            <li><a href="#">Users</a></li>
+            <li><a href="#">Roles</a></li>
+            <li><a href="#">Logs</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main">
+        <header class="header">
+            <h2>Admin Dashboard</h2>
+            <div class="profile" id="profileMenu">
+                <span id="profileInitial">A</span>
+                <div class="dropdown" id="dropdownMenu">
+                    <a href="#">My Profile</a>
+                    <a href="#">System Settings</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+        </header>
+
+        <section class="dashboard">
+            <h3>Welcome, Admin 👋</h3>
+            <div class="cards">
+                <div class="card">
+                    <h4>👥 Manage Users</h4>
+                    <p>View, add, or delete users. Assign roles and permissions securely.</p>
+                </div>
+                <div class="card">
+                    <h4>🧾 System Logs</h4>
+                    <p>Track authentication logs, failed login attempts, and API usage.</p>
+                </div>
+                <div class="card">
+                    <h4>⚙️ Configuration</h4>
+                    <p>Modify system properties, environment profiles, and security settings.</p>
+                </div>
+                <div class="card">
+                    <h4>📈 Reports</h4>
+                    <p>Generate and download analytical reports of user activity and system metrics.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            © <span id="year"></span> SecureApp Admin Panel — Powered by Spring Boot & Spring Security
+        </footer>
+    </main>
+
+</div>
+
+<script>
+    // Dynamic year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Dropdown toggle
+    const profile = document.getElementById("profileMenu");
+    const dropdown = document.getElementById("dropdownMenu");
+    profile.addEventListener("click", () => {
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    });
+    document.addEventListener("click", (e) => {
+      if (!profile.contains(e.target)) dropdown.style.display = "none";
+    });
+
+    // Set admin initial dynamically
+    const adminName = "Admin"; // Replace with actual username via Thymeleaf or JS
+    document.getElementById("profileInitial").textContent = adminName.charAt(0).toUpperCase();
+</script>
+</body>
+</html>

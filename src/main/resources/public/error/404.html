@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>403 Forbidden</title>
+    <style>
+        :root{
+          --bg1: #0f172a;
+          --bg2: #071029;
+          --card: rgba(255,255,255,0.06);
+          --accent: #ff6b6b;
+          --muted: rgba(255,255,255,0.7);
+          --glass: rgba(255,255,255,0.03);
+          --glass-2: rgba(255,255,255,0.02);
+          --shadow: 0 8px 30px rgba(2,6,23,0.6);
+          --radius: 16px;
+        }
+
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+          margin:0;
+          font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+          background: radial-gradient(1200px 600px at 10% 20%, rgba(255,107,107,0.06), transparent 6%),
+                      radial-gradient(900px 500px at 90% 80%, rgba(95,195,255,0.03), transparent 6%),
+                      linear-gradient(180deg, var(--bg1), var(--bg2));
+          color: #e6eef8;
+          -webkit-font-smoothing:antialiased;
+          -moz-osx-font-smoothing:grayscale;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          padding:32px;
+          gap:24px;
+        }
+
+        .container{
+          width:100%;
+          max-width:1100px;
+          display:grid;
+          grid-template-columns: 420px 1fr;
+          gap:28px;
+          align-items:center;
+        }
+
+        /* card */
+        .card{
+          background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+          border-radius: var(--radius);
+          padding:36px;
+          box-shadow: var(--shadow);
+          backdrop-filter: blur(6px) saturate(120%);
+          border: 1px solid rgba(255,255,255,0.04);
+        }
+
+        /* left - big code */
+        .code-area{
+          display:flex;
+          flex-direction:column;
+          align-items:center;
+          justify-content:center;
+          text-align:center;
+          gap:18px;
+          padding:28px;
+        }
+
+        .big-code{
+          font-weight:800;
+          font-size:110px;
+          line-height:1;
+          letter-spacing:2px;
+          color:transparent;
+          -webkit-text-stroke:2px rgba(255,255,255,0.08);
+          background: linear-gradient(90deg, #fff 0%, #ffd5d5 40%, #ff6b6b 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+        }
+
+        .title{
+          font-size:22px;
+          font-weight:700;
+          margin:0;
+          color: #fff;
+        }
+
+        .subtitle{
+          margin:0;
+          color:var(--muted);
+          font-size:14px;
+        }
+
+        /* right - details */
+        .details{
+          display:flex;
+          flex-direction:column;
+          gap:16px;
+        }
+
+        .illustration{
+          width:100%;
+          height:180px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          border-radius:12px;
+          background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+          border: 1px solid rgba(255,255,255,0.02);
+          padding:18px;
+          overflow:hidden;
+        }
+
+        .bubble{
+          width:140px;
+          height:140px;
+          border-radius:50%;
+          display:inline-grid;
+          place-items:center;
+          background: conic-gradient(from 180deg at 50% 50%, rgba(255,107,107,0.18), rgba(255,200,200,0.08));
+          transform: rotate(-8deg);
+          box-shadow: 0 12px 30px rgba(4,9,30,0.45);
+        }
+
+        .bubble svg{ width:88px; height:88px; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.45)); }
+
+        .explain{
+          color:var(--muted);
+          font-size:15px;
+          line-height:1.5;
+        }
+
+        .hint{
+          display:flex;
+          gap:10px;
+          flex-wrap:wrap;
+          margin-top:6px;
+        }
+
+        .chip{
+          background:var(--glass);
+          padding:8px 12px;
+          border-radius:999px;
+          font-size:13px;
+          color: #dfe9ff;
+          border:1px solid rgba(255,255,255,0.03);
+        }
+
+        .actions{
+          display:flex;
+          gap:12px;
+          margin-top:14px;
+          align-items:center;
+        }
+
+        .btn{
+          display:inline-flex;
+          align-items:center;
+          gap:10px;
+          padding:10px 16px;
+          border-radius:10px;
+          font-weight:600;
+          font-size:14px;
+          cursor:pointer;
+          border: none;
+          text-decoration:none;
+          user-select:none;
+        }
+
+        .btn-primary{
+          background: linear-gradient(90deg,#ff7b7b,#ff4b6b);
+          color:white;
+          box-shadow: 0 8px 18px rgba(255,75,107,0.18);
+          border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .btn-ghost{
+          background:transparent;
+          color:var(--muted);
+          border: 1px solid rgba(255,255,255,0.04);
+          padding:10px 14px;
+        }
+
+        .small{
+          font-size:13px;
+          color:rgba(255,255,255,0.6);
+        }
+
+        footer{
+          margin-top:18px;
+          font-size:13px;
+          color:rgba(255,255,255,0.45);
+          display:flex;
+          justify-content:space-between;
+          gap:12px;
+          align-items:center;
+          flex-wrap:wrap;
+        }
+
+        .code-snippet{
+          background: rgba(0,0,0,0.15);
+          padding:10px 12px;
+          border-radius:8px;
+          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+          font-size:13px;
+          color:#e8f2ff;
+          border: 1px solid rgba(255,255,255,0.03);
+          user-select: all;
+        }
+
+        /* responsive */
+        @media (max-width:880px){
+          .container{grid-template-columns:1fr; padding:0}
+          .big-code{font-size:82px}
+          .illustration{height:140px}
+        }
+
+        @media (max-width:480px){
+          .big-code{font-size:56px}
+          .card{padding:20px}
+          .illustration{height:120px}
+        }
+
+        /* subtle float animation */
+        @keyframes floaty {
+          0% { transform: translateY(0) rotate(-8deg); }
+          50% { transform: translateY(-8px) rotate(-6deg); }
+          100% { transform: translateY(0) rotate(-8deg); }
+        }
+        .bubble{ animation: floaty 5.4s ease-in-out infinite; }
+
+    </style>
+</head>
+<body>
+<main class="container" role="main" aria-labelledby="error-title">
+    <!-- Left card: big code + short -->
+    <section class="card code-area" aria-hidden="false">
+        <div class="big-code" aria-hidden="true">403</div>
+        <h1 id="error-title" class="title">Forbidden</h1>
+        <p class="subtitle">You don’t have permission to access this resource.</p>
+
+        <div class="actions" style="margin-top:18px;">
+            <a class="btn btn-primary" href="/" title="Go to homepage" id="homeBtn">Go to homepage</a>
+            <button class="btn btn-ghost" id="backBtn" title="Go back in browser history">Go back</button>
+            <a class="btn btn-ghost" href="mailto:support@example.com?subject=403%20Forbidden%20help" title="Contact support">Contact support</a>
+        </div>
+
+        <footer>
+            <span class="small">Reference: <span id="timestamp" class="small"></span></span>
+            <span class="code-snippet" id="requestId">req-id: -</span>
+        </footer>
+    </section>
+
+    <!-- Right card: details + illustration -->
+    <aside class="card details" aria-label="Error details">
+        <div class="illustration" aria-hidden="true">
+            <div class="bubble" role="img" aria-label="lock icon">
+                <!-- simple lock SVG -->
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="11" width="18" height="10" rx="2" stroke="white" stroke-opacity="0.9" stroke-width="1.4" fill="rgba(255,255,255,0.02)"/>
+                    <path d="M7 11V8a5 5 0 0 1 10 0v3" stroke="white" stroke-opacity="0.95" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="16" r="1.4" fill="white" />
+                </svg>
+            </div>
+        </div>
+
+        <div>
+            <p class="explain">
+                The server understood your request but refuses to authorize it. This usually happens when:
+            </p>
+
+            <div class="hint" aria-hidden="false">
+                <div class="chip">You need to log in</div>
+                <div class="chip">Insufficient privileges</div>
+                <div class="chip">IP or region blocked</div>
+            </div>
+
+            <p class="explain" style="margin-top:12px;">
+                If you believe this is an error, check that you're signed-in with the correct account and have the right permissions, or reach out to the site administrator.
+            </p>
+
+            <div style="margin-top:16px">
+                <strong style="display:block;margin-bottom:8px;color:#fff">Quick fixes</strong>
+                <ol style="margin:0 0 4px 20px;color:var(--muted);line-height:1.6">
+                    <li>Try signing in with an account that has access.</li>
+                    <li>Clear your browser cookies &amp; cache and retry.</li>
+                    <li>Contact support if the problem persists.</li>
+                </ol>
+            </div>
+        </div>
+    </aside>
+</main>
+
+<script>
+    // Set timestamp and a dummy request id (replace with server-provided value)
+    (function(){
+      const now = new Date();
+      // format: YYYY-MM-DD HH:MM:SS (local)
+      const pad = (n)=> String(n).padStart(2,'0');
+      const ts = now.getFullYear() + '-' + pad(now.getMonth()+1) + '-' + pad(now.getDate()) + ' ' +
+                 pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+      document.getElementById('timestamp').textContent = ts;
+
+      // If your server injects a request id, replace this element's textContent server-side.
+      const reqIdEl = document.getElementById('requestId');
+      // attempt to read from a meta tag if server sets it:
+      const meta = document.querySelector('meta[name="request-id"]');
+      if(meta && meta.content) reqIdEl.textContent = 'req-id: ' + meta.content;
+      else reqIdEl.textContent = 'req-id: ' + Math.random().toString(36).slice(2,10);
+
+      // attach buttons
+      document.getElementById('backBtn').addEventListener('click', function(){
+        if(history.length > 1) history.back();
+        else window.location.href = '/';
+      });
+      // optional: home button always goes to root
+      document.getElementById('homeBtn').addEventListener('click', function(e){
+        // if you want to handle client-side routing, prevent full reload and use your SPA router
+        // e.preventDefault();
+        // router.navigate('/');
+      });
+    })();
+</script>
+</body>
+</html>
